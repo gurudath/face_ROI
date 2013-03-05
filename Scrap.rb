@@ -2,6 +2,7 @@ $: << 'lib'
 
 require 'face_ROI'
 require './test/setup.rb'
+require 'rmagick'
   
 # Test::CONFIG1
   
@@ -21,16 +22,29 @@ def test_me(path, show_it=false)
   face_path = path.sub(/\./, "-faces.")
   face_path = "out/#{face_path}"
   image.save(face_path)
+  
+  rm_img=Magick::Image.read(path)[0]
+  img_width=rm_img.columns
+  img_height=rm_img.rows
+  
+  roi_x, roi_y, roi_width, roi_height= f.roi
 
   dimensions.each do |dimension|
-    w, h = dimension
-    top_left_x, top_left_y, faces_width, faces_height = f.calculate_crop_rect(w,h)
-    out_path = path.sub(/\./, "-#{w}x#{h}.")
+    target_width, target_height = dimension
+    offset_x, offset_y, crop_width, crop_height = 
+      FaceROI::Helper.calculate_crop_rect(target_width, target_height, img_width, img_height, roi_x, roi_y, roi_width, roi_height)
+
+    out_path = path.sub(/\./, "-#{target_width}x#{target_height}.")
     out_path = "out/#{out_path}"
-    system("convert", "-crop", "#{faces_width}x#{faces_height}+#{top_left_x}+#{top_left_y}", "-scale", "#{w}x#{h}", path, out_path)
+    
+    rm_img.excerpt(offset_x, offset_y, crop_width, crop_height).resize(target_width, target_height).write(out_path)
+    
     if show_it then
-      image= f.image_with_faces
-      display image
+      img= image.copy
+      x,y,w,h= offset_x, offset_y, crop_width, crop_height
+      img.rectangle! OpenCV::CvPoint.new(x, y), OpenCV::CvPoint.new(x+w, y+h), :color => OpenCV::CvColor::Green
+
+      display img
     end
   end
 end
@@ -38,9 +52,10 @@ end
 #test_me 'test/IMG_2856.jpg'
 test_me 'test/IMG_0465.jpg', true
 #test_me 'test/IMG_0341.jpg'
+exit 0
 
 Dir.glob('test/*.jpg').each do |p|
-  test_me p
+  test_me p, true
 end
 
 

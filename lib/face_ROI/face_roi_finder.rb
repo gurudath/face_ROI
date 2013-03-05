@@ -40,6 +40,10 @@ module FaceROI
       @faces_rect= FaceROI::Helper.calculate_rect(self, options[:padding])
     end
 
+    def roi
+      @faces_rect
+    end
+    
     def calculate_crop_rect(target_width, target_height)
       x,y,w,h= @faces_rect
       @crop_rect= FaceROI::Helper.calculate_crop_rect(target_width, target_height, width(), height(), x,y,w,h)
