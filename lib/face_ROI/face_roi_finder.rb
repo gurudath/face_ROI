@@ -76,11 +76,6 @@ module FaceROI
         image.rectangle! OpenCV::CvPoint.new(x, y), OpenCV::CvPoint.new(x+w, y+h), :color => OpenCV::CvColor::Red
       end
 
-      if @crop_rect
-        x,y,w,h=@crop_rect
-        image.rectangle! OpenCV::CvPoint.new(x, y), OpenCV::CvPoint.new(x+w, y+h), :color => OpenCV::CvColor::Green
-      end
-
       image
     end
     
