@@ -2,17 +2,7 @@ module FaceROI
   class Finder
     attr_accessor :faces_regions
     
-    @@defaults = {
-      :face => %w(/usr/local/share/opencv/haarcascades/haarcascade_frontalface_alt_tree.xml
-      /usr/local/share/opencv/haarcascades/haarcascade_frontalface_alt.xml
-      /usr/local/share/opencv/haarcascades/haarcascade_profileface.xml),
-  
-      :parts => %w(/usr/local/share/opencv/haarcascades/haarcascade_mcs_nose.xml
-      /usr/local/share/opencv/haarcascades/haarcascade_mcs_lefteye.xml
-      /usr/local/share/opencv/haarcascades/haarcascade_mcs_righteye.xml),
-  
-      :padding => [0.6] # top, right (=top), bottom (=top), left (=right); same as CSS
-    }
+    @@defaults = FaceROI::CONFIG1
     
     def has_faces?
       @faces_regions.size > 0
