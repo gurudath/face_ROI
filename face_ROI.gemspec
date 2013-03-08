@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["deepak@kreatio.com"]
   spec.description   = %q{Find ROI in an image using face detection}
   spec.summary       = %q{Using OpenCV detect faces ina an image and calculate a rectangle that includes all detected faces}
-  spec.homepage      = "https://github.com/deepak-india/face_ROI"
+  spec.homepage      = "https://github.com/kreatio-sw/face_ROI"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
