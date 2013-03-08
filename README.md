@@ -54,8 +54,10 @@ $ gem install face_ROI
 module FaceROI
   OPENCV_BASE= '/usr/local'
 end
+````
 
-# Sample usage
+### Sample usage
+```ruby
 require 'face_ROI'
 
 path='test/IMG_0465.jpg'
