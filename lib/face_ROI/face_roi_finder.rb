@@ -8,6 +8,10 @@ module FaceROI
       @faces_regions.size > 0
     end
 
+    def has_roi?
+      has_faces?
+    end
+
     def initialize(file, options)
       options = @@defaults.merge(options)
       
