@@ -1,26 +1,29 @@
 # FaceROI
 
-A simple Ruby Gem to calculate an ROI in an image by indetifying faces using [OpenCV] <http://opencv.org/>. This
+A simple Ruby Gem to calculate an ROI in an image by indetifying faces using [OpenCV] (http://opencv.org/). This
  can be used to create optimal crops of images.
 
-Adapted from and inspired by [paperclip-facecrop] <https://github.com/dagi3d/paperclip-facecrop>
+Adapted from and inspired by [paperclip-facecrop] (https://github.com/dagi3d/paperclip-facecrop).
 
 ## Installation
 
-Install OpenCV
+Install OpenCV (Mac OSX)
 
 ````
 $ sudo port install cmake # in case cmake has not already been installed
 
-$ tar xvzf OpenCV-2.4.4.tar.bz2
-$ cd OpenCV-2.4.4
+$ tar xvzf OpenCV-2.4.0.tar.bz2
+$ cd OpenCV-2.4.0
 $ mkdir build
 $ cd build
 $ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+$ make
 $ sudo make install
 ````
 
-Install Ruby OpenCV
+For other platforms: [Install Guide] (http://docs.opencv.org/doc/tutorials/introduction/table_of_content_introduction/table_of_content_introduction.html)
+
+Install [Ruby OpenCV] (https://github.com/ruby-opencv/ruby-opencv/)
 
 ````
 $ gem install ruby-opencv -- --with-opencv-dir=/usr/local
@@ -58,6 +61,7 @@ require 'face_ROI'
 path='test/IMG_0465.jpg'
 f=FaceROI::Finder.new(path, FaceROI::CONFIG1)
 
+# In case there were no faces detected it will return the full image
 roi_x, roi_y, roi_width, roi_height= f.roi
 puts "(#{path}) has ROI?: #{f.has_roi?}"
 puts "ROI Offset (#{roi_x}, #{roi_y}), width: #{roi_width}, height #{roi_height}"
@@ -102,7 +106,7 @@ Use any of the above, adapt, or create your own configuration.
 
 For padding - just like CSS - 1, 2, 3, or 4 values can be provided.
 
-Also see [paperclip-facecrop] <https://github.com/dagi3d/paperclip-facecrop> for few more details.
+Also see [paperclip-facecrop] (https://github.com/dagi3d/paperclip-facecrop) for few more details.
 
 ## Contributing
 
