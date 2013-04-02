@@ -2,7 +2,13 @@ module FaceROI
   class Finder
     attr_accessor :faces_regions
     
-    @@defaults = FaceROI::CONFIG1
+    def self.defaults= (d)
+      @@defaults = d
+    end
+
+    def self.defaults
+      @@defaults
+    end
     
     def has_faces?
       @faces_regions.size > 0
@@ -36,11 +42,6 @@ module FaceROI
 
     def roi
       @faces_rect
-    end
-    
-    def calculate_crop_rect(target_width, target_height)
-      x,y,w,h= @faces_rect
-      @crop_rect= FaceROI::Helper.calculate_crop_rect(target_width, target_height, width(), height(), x,y,w,h)
     end
     
     #  private
